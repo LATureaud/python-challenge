@@ -7,42 +7,42 @@ with open(budget_data, mode = 'r') as csvfile:
    budget = csv.reader(csvfile, delimiter=',')
    next(budget)
 #set up some variables
-   bigmoney = 0
+   maxrev = 0
    months = 0
-   firstlist = []
+   list1 = []
    monthlist = []
-   changelist = []
-#make a function because why not, it's only being used once
+   change = []
+#make a function may need to go back to it
    def changefunction(item):
        length = len(item)
        for x in range(length):
-           changelist.append(int(item[x])-int(item[x-1]))
-       changelist.pop(0)
-       changelist.insert(0, 0)
+           change.append(int(item[x])-int(item[x-1]))
+       change.pop(0)
+       change.insert(0, 0)
        return None
-#for loop - grab some numbers, add them up, and put them in a list
+#for loop add up the numbers and put them in list
    for row in budget:
-       firstlist.append(row[1])
-       bigmoney += int(row[1])
+       list1.append(row[1])
+       maxrev += int(row[1])
        monthlist.append(row[0])
        months += 1
-#apply the single-use function
-   changefunction(firstlist)
-#zip some lists to make a dictionary
-   keys = (changelist)
+
+   changefunction(list1)
+#zip lists to make a dictionary
+   keys = (change)
    values = (monthlist)
-   zipdic = dict(zip(keys, values))
+   addtogether = dict(zip(keys, values))
 #get the display going
    print("FINANCIAL ANALYSIS")
    print("-------------------------------")
    print("Total Months: " + str(months))
-   print("Total: $" + str(bigmoney)+".00")
-   print("Average Change: $" + str(round(int(sum(changelist))/int(len(changelist))))+".00")
-   increase = str(max(changelist))
-   decrease = str(min(changelist))
-   print("Greatest Increase in Profits: " + zipdic[int(increase)] + " $" + increase +".00")
-   print("Greatest Decrease in Profits: " + zipdic[int(decrease)] + " $" + decrease +".00")
-   open(Report,)
+   print("Total: $" + str(maxrev)+".00")
+   print("Average Change: $" + str(round(int(sum(change))/int(len(change))))+".00")
+   increase = str(max(change))
+   decrease = str(min(change))
+   print("Greatest Increase in Profits: " + addtogether[int(increase)] + " $" + increase +".00")
+   print("Greatest Decrease in Profits: " + addtogether[int(decrease)] + " $" + decrease +".00")
+   open('Homework3A.csv')
 print("done")
 #The total number of months included in the dataset
 #The net total amount of "Profit/Losses" over the entire period

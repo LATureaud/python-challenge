@@ -15,28 +15,23 @@ with open(budget_data) as csvfile:
     minmont = ""
     lastmonth = None
     changes = []
-    for row in csv:
+    for row in budget:
         month = row[0]
-        pnl = row [1]
-        total += pnl
+        profitloss = int(row[1])
+        total += int(row[1])
         months += 1
         #keeps a running maximum
         if lastmonth is not False:
-            changes.append(pnl-lastmonth)
-            currentchange = pnl - lastmonth        
-            if pnl > maxrev:
-                maxrev = pnl
+            changes.append(profitloss-lastmonth)
+            currentchange = profitloss - lastmonth        
+            if profitloss > maxrev:
+                maxrev = profitloss
                 maxmonth = month
-            elif pnl < minrev:
-                minrev = pnl
-                minmonth = current_month
+            elif profitloss < minrev:
+                minrev = profitloss
+                minmonth = month
         
-        lastmonth = pnl
+        lastmonth = profitloss
     avgchange = sum(changes)/len(changes)
 
-    return [months, total, maxrev, minrev,avgchange]
-
-    with open(path) as file:
-print(return)        
-        
-
+print([months, total, maxrev, minrev,avgchange])
